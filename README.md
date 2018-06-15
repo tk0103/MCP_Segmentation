@@ -16,3 +16,6 @@ MultiContrast Phantom セグメンテーション
 |GraphCut|
 |---|
 |<img src="https://github.com/tk0103/MCP_Segmentation/blob/master/Images/GraphCut.png" alt="Proposed" title="Proposed image" width="400" height="200">|  
+
+# License
+MIT
