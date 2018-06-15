@@ -1,26 +1,7 @@
 %%
 %MCP
-%éUïzê}ÅCÉqÉXÉgÉOÉâÉÄ
-
-E1 = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\PBL_MCP_phantom12E1.raw','*single');
-E2 = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\PBL_MCP_phantom12E2.raw','*single');
-E3 = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\PBL_MCP_phantom12E3.raw','*single');
-E4 = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\PBL_MCP_phantom12E4.raw','*single');
-GT = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\Groundtruth0.50.25robust.raw','*single');
-
-%{
-E1 = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\MCP_phantom12E1.raw','*single');
-E2 = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\MCP_phantom12E2.raw','*single');
-E3 = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\MCP_phantom12E3.raw','*single');
-E4 = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\MCP_phantom12E4.raw','*single');
-GT = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\Groundtruth0.50.25robust.raw','*single');
-%}
-
-siz = [544,544,50];
-E1 = reshape(E1,siz); E2 = reshape(E2,siz); E3 = reshape(E3,siz); E4 = reshape(E4,siz); GT = reshape(GT,siz);
-
-%%
-%#1Ç©ÇÁ#20Ç‹Ç≈
+%Êï£Â∏ÉÂõ≥Ôºå„Éí„Çπ„Éà„Ç∞„É©„É†
+%#1„Åã„Çâ#20„Åæ„Åß
 volsize = 5;
 mask = false(siz); mask(:,:,16:20) = true;
 E1train = E1(mask); E1train = reshape(E1train,[siz(1),siz(2),volsize]);
