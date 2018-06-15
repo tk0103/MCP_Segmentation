@@ -1,12 +1,16 @@
 # MCP Anotation(JP)
-Phantom Groundtruthì¬ƒAƒ‹ƒSƒŠƒYƒ€ 
-* InputPath_ano.txt @“ü—ÍƒpƒX  
-* CasePath_ano.txt @Ç—á–¼  
-* load_data.m @ƒf[ƒ^ƒ[ƒh   
-* MCP_Canny.m  ƒLƒƒƒj[ƒGƒbƒWƒtƒBƒ‹ƒ^  
-* MCP_label.m @³‰ğƒ‰ƒxƒ‹ì¬ƒAƒ‹ƒSƒŠƒYƒ€  
+Phantom Groundtruthä½œæˆã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ  
+* InputPath_ano.txt ã€€å…¥åŠ›ãƒ‘ã‚¹  
+* CasePath_ano.txt ã€€ç—‡ä¾‹å  
+* load_data.m ã€€ãƒ‡ãƒ¼ã‚¿ãƒ­ãƒ¼ãƒ‰   
+* MCP_Canny.m  ã‚­ãƒ£ãƒ‹ãƒ¼ã‚¨ãƒƒã‚¸ãƒ•ã‚£ãƒ«ã‚¿  
+* MCP_label.m ã€€æ­£è§£ãƒ©ãƒ™ãƒ«ä½œæˆã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ   
 
 # Image
-|Original #25|Proposed #25|
-|---|---|
-|<img src="https://github.com/tk0103/MCP_Segmentation/blob/master/Anotation/Images/Groundtruth%2320.png" alt="original" title="original image" width="200" height="200">|<img src="https://github.com/tk0103/MCP_Segmentation/blob/master/Anotation/Images/Groundtruth%2340.png" alt="Proposed" title="Proposed image" width="200" height="200">|  
+|EM_MAP|
+|---|
+|<img src="https://github.com/tk0103/MCP_Segmentation/blob/master/Images/EM_MAP.png" alt="original" title="original image" width="200" height="200">|
+
+|GraphCut|
+|---|
+|<img src="https://github.com/tk0103/MCP_Segmentation/blob/master/Images/GraphCut.png" alt="Proposed" title="Proposed image" width="200" height="200">|  
