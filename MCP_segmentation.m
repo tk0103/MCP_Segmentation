@@ -1,199 +1,15 @@
-%%
-%Segmentation
-%Input
-%{
-E1 = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\PBL_MCP_phantom12E1.raw','*single');
-E2 = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\PBL_MCP_phantom12E2.raw','*single');
-E3 = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\PBL_MCP_phantom12E3.raw','*single');
-E4 = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\PBL_MCP_phantom12E4.raw','*single');
-GT = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\2Groundtruth0.50.25robust.raw','*single');
-%}
-E1 = load_raw('\\tera\user\boku\NZ_data\Multi_Contrast_Phantom\3Dvolume\MCP_phantom12E1.raw','*single');
-E2 = load_raw('\\tera\user\boku\NZ_data\Multi_Contrast_Phantom\3Dvolume\MCP_phantom12E2.raw','*single');
-E3 = load_raw('\\tera\user\boku\NZ_data\Multi_Contrast_Phantom\3Dvolume\MCP_phantom12E3.raw','*single');
-E4 = load_raw('\\tera\user\boku\NZ_data\Multi_Contrast_Phantom\3Dvolume\MCP_phantom12E4.raw','*single');
-GT = load_raw('\\tera\user\boku\NZ_data\Multi_Contrast_Phantom\2groundtruth0.50.25robust.raw','*single');
-
-siz = [544,544,50];  
-E1 = reshape(E1,siz); E2 = reshape(E2,siz); E3 = reshape(E3,siz); E4 = reshape(E4,siz); GT = reshape(GT,siz);
-
-%%
-Gd = load_raw('\\tera\user\boku\NZ_data\Multi_Contrast_Phantom\3DVolume_MD\Gd.raw','*single');
-Gd = reshape(Gd,siz);
-Gold = load_raw('\\tera\user\boku\NZ_data\Multi_Contrast_Phantom\3DVolume_MD\Gold.raw','*single');
-Gold = reshape(Gold,siz);
-HA = load_raw('\\tera\user\boku\NZ_data\Multi_Contrast_Phantom\3DVolume_MD\HA.raw','*single');
-HA = reshape(HA,siz);
-Iodine = load_raw('\\tera\user\boku\NZ_data\Multi_Contrast_Phantom\3DVolume_MD\Iodine.raw','*single');
-Iodine = reshape(Iodine,siz);
-Lipid = load_raw('\\tera\user\boku\NZ_data\Multi_Contrast_Phantom\3DVolume_MD\Lipid.raw','*single');
-Lipid = reshape(Lipid,siz);
-Water = load_raw('\\tera\user\boku\NZ_data\Multi_Contrast_Phantom\3DVolume_MD\Water.raw','*single');
-Water = reshape(Water,siz);
-%%
 E1 = E1(:,:,[1:24,26:50]); E2 = E2(:,:,[1:24,26:50]); E3 = E3(:,:,[1:24,26:50]); E4 = E4(:,:,[1:24,26:50]);
-GT = GT(:,:,[1:24,26:50]); bg = bg(:,:,[1:24,26:50]);
+GT = GT(:,:,[1:24,26:50]);
 tr = 49; tes = 1; tee = 48;
 siz = [544 544 49];
 %%
 Gd = Gd(:,:,[1:24,26:50]); Gold = Gold(:,:,[1:24,26:50]); HA = HA(:,:,[1:24,26:50]);
 Iodine = Iodine(:,:,[1:24,26:50]); Lipid = Lipid(:,:,[1:24,26:50]); Water = Water(:,:,[1:24,26:50]);
-%%
-slice = 19;
-imagesc(Lipid(:,:,slice)');
-axis tight equal
-colormap gray
-%%
-acE1  = mean(E1(GT== 3));
-acE2  = mean(E2(GT== 3));
-acE3  = mean(E3(GT== 3));
-acE4  = mean(E4(GT== 3));
 
-E1 = (E1 - acE1) / acE1*1000;
-E2 = (E2 - acE2) / acE2*1000;
-E3 = (E3 - acE3) / acE3*1000;
-E4 = (E4 - acE4) / acE4*1000;
-%%
-save_raw(E1,'C:\Users\yourb\Desktop\phantom12E1.raw','*single');
-save_raw(E2,'C:\Users\yourb\Desktop\phantom12E2.raw','*single');
-save_raw(E3,'C:\Users\yourb\Desktop\phantom12E3.raw','*single');
-save_raw(E4,'C:\Users\yourb\Desktop\phantom12E4.raw','*single');
 %%
 %background segmentation
 bg = zeros(siz);
 bg(E1 < 0.13) = 1;
-%%
-tmp = E3 - E2;
-
-slice = 30;
-subplot(1,3,1)
-imagesc(E2(:,:,slice)');
-axis tight equal off
-colormap gray
-caxis([0 0.7])
-
-subplot(1,3,2)
-imagesc(E3(:,:,slice)');
-axis tight equal off
-colormap gray
-caxis([0 0.7])
-
-subplot(1,3,3)
-imagesc(tmp(:,:,slice)');
-axis tight equal off
-
-%%
-y =340;
-rangex = [220,290];
-rangey = [y-50,y+50];
-test1 = E1(:,y,34);
-test2 = E1(:,y,34);
-
-
-subplot(3,4,[1,6])
-imagesc(E1(:,:,30)');
-%imagesc(Output(:,:,2)');
-%colormap(map);
-colormap gray
-axis equal tight
-rectangle('Position',[1,y-0.5,436,1],'FaceColor','none','EdgeColor','r',...
-    'LineWidth',1)
-xlim(rangex);
-ylim(rangey);
-
-
-subplot(3,4,[3,8])
-imagesc(E1(:,:,30)');
-%colormap gray
-axis equal tight
- rectangle('Position',[1,y-0.5,436,1],'FaceColor','none','EdgeColor','r',...
-    'LineWidth',1)
-xlim(rangex);
-ylim(rangey);
-
-
-M1 = movmean(test1,3);
-subplot(3,4,[9,10])
-h= plot([test1]);
-h(1).Color = 'g';
-xlim(rangex);
-ylim([-0.1,0.7]);
-legend({'Gray value'});
-
-
-M2 = movmean(test2,3);
-subplot(3,4,[11,12])
-h= plot([test2]);
-h(1).Color = 'g';
-xlim(rangex);
-ylim([-0.1,0.7]);
-legend({'Gray value'});
-
-%%
-tmp = E2 - E1;
-tmp(tmp <= 0) = 0;
-slice = 30;
-imagesc(tmp(:,:,slice)');
-axis tight equal off
-colormap gray
-%%
-%CT
-inin = E4;
-mat = 3;
-slice =26;
-
-%mat3 = water 
-tmp1 = GT== 3;
-in  = inin(tmp1);
-avg = mean(in);
-
-tmp1 = GT(:,:,slice)== mat;
-Dtest = bwdist(~tmp1);
-in = inin(:,:,slice);
-%in = (in-avg)/avg*1000;
-sta = 1; en = 32.5; inter = 0.5; 
-num = sta:inter:en;
-avgvec = zeros(size(num,1),1);
-num=1;
-for dist = sta:inter:en
-    tmp2 = Dtest<=dist;
-    tmp3 = Dtest>(dist-inter);
-    out = and(tmp1,tmp2);
-    out = and(out,tmp3);
-    avgvec(num,1) = mean(in(out));
-    num = num+1;
-end
-num = sta:inter:en;
-scatter(num,avgvec);
-ylim([-150 100])
-
-%%
-%MD
-in = Water;
-mat = 1;
-slice =50;
-imagesc(in(:,:,slice)');
-axis tight equal
-%%
-%mat3 = water 
-tmp1 = GT(:,:,slice)== mat;
-Dtest = bwdist(~tmp1);
-in = in(:,:,slice);
-%in = (in-avg)/avg*1000;
-sta = 1; en = 32.5; inter = 0.5; 
-num = sta:inter:en;
-avgvec = zeros(size(num,1),1);
-num=1;
-for dist = sta:inter:en
-    tmp2 = Dtest<=dist;
-    tmp3 = Dtest>(dist-inter);
-    out = and(tmp1,tmp2);
-    out = and(out,tmp3);
-    avgvec(num,1) = mean(in(out));
-    num = num+1;
-end
-num = sta:inter:en;
-scatter(num,avgvec);
 
 %%
 %train test
@@ -216,7 +32,7 @@ E2test = zeros(sizte); E2test(maskte) = E2te(maskte);
 E3test = zeros(sizte); E3test(maskte) = E3te(maskte); 
 E4test = zeros(sizte); E4test(maskte) = E4te(maskte); 
 GTtest = zeros(sizte); GTtest(maskte) = GTte(maskte); 
-
+%%
 %train test material
 HAtr = HA(:,:,tr); Goldtr = Gold(:,:,tr); Gdtr = Gd(:,:,tr); Iodinetr = Iodine(:,:,tr); Lipidtr = Lipid(:,:,tr); Watertr = Water(:,:,tr);
 HAte = HA(:,:,tes:tee); Goldte = Gold(:,:,tes:tee); Gdte = Gd(:,:,tes:tee); Iodinete = Iodine(:,:,tes:tee); Lipidte = Lipid(:,:,tes:tee); Waterte = Water(:,:,tes:tee); 
@@ -242,7 +58,7 @@ Xte = [E1test(maskte) E2test(maskte) E3test(maskte) E4test(maskte)];
 clearvars E1tr E2tr E3tr E4tr E1te E2te E3te E4te
 %%
 %atlas
-sig = 1.250001; 
+sig = 1.25000001; 
 K = 13;
 atlasmat = cell(K-1,1);
 atlastestmat = cell(sizte(3),K-1);
@@ -268,6 +84,7 @@ atlas = zeros(sum(maskte(:) ==1),K);
 atlas(:,1:12) = cell2mat(atlastestmat);
 atlas(:,K) = atlasbase(maskte);
 %%
+%
 test = zeros(sizte);
 test(maskte) = atlasbase(maskte);
 figure;
@@ -279,10 +96,10 @@ axis tight equal off
 GTmat = GTtrain(masktr);
 for k = 1:K-1
     tmp1 = Xtr(:,1); tmp2 = Xtr(:,2); tmp3 = Xtr(:,3); tmp4 = Xtr(:,4);
-    S.Mu(k,1) = mean(tmp1(GTmat == k));
-    S.Mu(k,2) = mean(tmp2(GTmat == k));
-    S.Mu(k,3) = mean(tmp3(GTmat == k));
-    S.Mu(k,4) = mean(tmp4(GTmat == k));
+    S.mu(k,1) = mean(tmp1(GTmat == k));
+    S.mu(k,2) = mean(tmp2(GTmat == k));
+    S.mu(k,3) = mean(tmp3(GTmat == k));
+    S.mu(k,4) = mean(tmp4(GTmat == k));
     S.Sigma(:,:,k) = cov([tmp1(GTmat == k),tmp2(GTmat == k),tmp3(GTmat == k),tmp4(GTmat == k)]);
     S.ComPro(k,1) = numel(tmp1(GTmat == k));
 end
@@ -295,14 +112,16 @@ base(mask) = E1train(mask);
 
 %base
 maskbase = logical(base); 
-S.Mu(K,1) = mean(E1train(maskbase));
-S.Mu(K,2) = mean(E2train(maskbase));
-S.Mu(K,3) = mean(E3train(maskbase));
-S.Mu(K,4) = mean(E4train(maskbase));
+S.mu(K,1) = mean(E1train(maskbase));
+S.mu(K,2) = mean(E2train(maskbase));
+S.mu(K,3) = mean(E3train(maskbase));
+S.mu(K,4) = mean(E4train(maskbase));
 S.Sigma(:,:,K) = cov([E1train(maskbase),E2train(maskbase),E3train(maskbase),E4train(maskbase)]);
 S.ComPro(K,1) = numel(E1train(maskbase));
 S.ComPro = S.ComPro ./ sum(S.ComPro);
 clearvars tmp1 tmp2 tmp3 tmp4
+%%
+[Imap,L,PP,GMMMu,GMMSigma,GMMpro] = AtlasGuidedEM_kubo(Xte,atlas,S,K,maskte,sizte);
 %%
 %EM initialvalue
 %material
@@ -546,14 +365,14 @@ colormap(map)
 %JI
 JI = zeros(K-1,1);
 for k = 1:K-1
-A = I == k;
+A = Imap == k;
 B = GTtest == k;
 A = A(:);
 B = B(:);
 JI(k,1) =  sum(and(A,B)) ./ sum(or(A,B));
 end
 clearvars A B
-disp(mean(JI(:)));
+disp(JI);
 
 %%
 RP = cell(1,K);

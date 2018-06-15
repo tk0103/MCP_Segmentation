@@ -1,8 +1,3 @@
-%%
-%Input
-Img = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\3Dvolume\MCP_phantom12E1.raw','*single');
-siz = [544 544 50]; Img = reshape(Img,siz);
-
 %Parameter
 crbin = 0.5; rbin = 0.25; radii = 15:rbin:34; numofcircle = 12; range = 55; numofrad = size(radii,2);
 sta = 1; send = 50; rlimit = 1.0; crlimit = 1.5;
@@ -10,28 +5,6 @@ sta = 1; send = 50; rlimit = 1.0; crlimit = 1.5;
 %ini
 EdgeImg = zeros(siz); [xx,yy] = ndgrid(1:(siz(1)/crbin),1:(siz(2)/crbin));
 theta = linspace(0,2*pi,360); peaksall = zeros(numofcircle,3,siz(3));
-%%
-%Canny edge detection  
-for snum = sta:send
-    SliceImg = Img(:,:,snum);
-    SliceImg(SliceImg<0.14) = 0;
-    EdgeImg(:,:,snum) = edge(SliceImg, 'canny',[],1.7);
-end
-%%
-imagesc(EdgeImg(:,:,10)');
-axis tight equal off
-colormap gray
-save_raw(SliceImg,'C:\Users\yourb\Desktop\cc.raw','*single');
-
-
-%%
-imshow(E1test(:,:,30)');
-colormap gray 
-axis tight equal off
-%%
-%circle Hough transform
-EdgeImg = load_raw('C:\Users\yourb\Desktop\NZdata\MCP\Canny_initial2.raw','*single');
-EdgeImg = reshape(EdgeImg,siz);
 
 for snum = sta:send
     disp(snum);

@@ -1,0 +1,5 @@
+MCP_phantom12E1
+MCP_phantom12E2
+MCP_phantom12E3
+MCP_phantom12E4
+2groundtruth0.50.25robust
