@@ -1,12 +1,10 @@
 # MCP Anotation(JP)
-リングアーチファクト抑圧バイラテラルフィルタ 
-* InputPath.txt 　入力パス  
-* CasePath.txt 　症例名  
-* load_case_data.m 　データロード  
-* Parameter_config.m 　パラメータ  
-* proposed_bilateral.m 　提案バイラテラルフィルタ  
-* Output.m 　画像表示・保存  
-
+Phantom Groundtruth作成アルゴリズム 
+* InputPath_ano.txt 　入力パス  
+* CasePath_ano.txt 　症例名  
+* load_data.m 　データロード   
+* MCP_Canny.m  キャニーエッジフィルタ  
+* MCP_label.m 　正解ラベル作成アルゴリズム  
 
 # Image
 |Original #25|Proposed #25|
