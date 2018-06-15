@@ -1,10 +1,12 @@
-# MCP Anotation(JP)
-Phantom Groundtruth作成アルゴリズム 
-* InputPath_ano.txt 　入力パス  
-* CasePath_ano.txt 　症例名  
-* load_data.m 　データロード   
-* MCP_Canny.m  キャニーエッジフィルタ  
-* MCP_label.m 　正解ラベル作成アルゴリズム  
+# MCP_Segmentation(JP)
+MultiContrast Phantom セグメンテーション 
+* InputPath_MCP.txt 　MCP入力パス  
+* InputPath_MD.txt 　MD入力パス  
+* CasePath_MCP.txt 　MCP症例名  
+* CasePath_MD.txt 　MD名  
+* load_case_data.m 　データロード   
+* MCP_segmentation.m  MCPセグメンテーション  
+* Evaluation.m 　評価・雑多    
 
 # Image
 |EM_MAP|
